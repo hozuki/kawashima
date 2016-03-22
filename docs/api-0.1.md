@@ -2,26 +2,26 @@
 
 Version: v0.1
 
-- [Functions](#Functions)
-- [Structures](#Structures)
-- [Enums](#Enums)
-- [Primitive Types](#Primitive-Types)
+- [Functions](#functions)
+- [Structures](#structures)
+- [Enums](#enums)
+- [Primitive Types](#primitive-types)
 
 ## Functions
 
-- [KsOpenFile](#KsOpenFile)
-- [KsOpenBuffer](#KsOpenBuffer)
-- [KsSetParamI32](#KsSetParamI32)
-- [KsSetParamI64](#KsSetParamI64)
-- [KsBeginDecode](#KsBeginDecode)
-- [KsGetWaveHeader](#KsGetWaveHeader)
-- [KsDecodeData](#KsDecodeData)
-- [KsEndDecode](#KsEndDecode)
-- [KsCloseHandle](#KsCloseHandle)
-- [KsGetHcaInfo](#KsGetHcaInfo)
-- [KsIsActiveHandle](#KsIsActiveHandle)
-- [KsIsHcaCheckPassed](#KsIsHcaCheckPassed)
-- [KsHasMoreData](#KsHasMoreData)
+- [KsOpenFile](#ksopenfile)
+- [KsOpenBuffer](#ksopenbuffer)
+- [KsSetParamI32](#kssetparami32)
+- [KsSetParamI64](#kssetparami64)
+- [KsBeginDecode](#ksbegindecode)
+- [KsGetWaveHeader](#ksgetwaveheader)
+- [KsDecodeData](#ksdecodedata)
+- [KsEndDecode](#ksenddecode)
+- [KsCloseHandle](#ksclosehandle)
+- [KsGetHcaInfo](#ksgethcainfo)
+- [KsIsActiveHandle](#ksisactivehandle)
+- [KsIsHcaCheckPassed](#ksishcacheckpassed)
+- [KsHasMoreData](#kshasmoredata)
 
 ### KsOpenFile
 
