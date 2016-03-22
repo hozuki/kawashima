@@ -94,7 +94,7 @@ Sets a 64-bit decoding parameter before starting to decode.
 
 - `hDecode`: the decoder handle.
 - `dwParamType`: the decoding parameter you want to set.
-- `dwParam`: the new value of the parameter.
+- `qwParam`: the new value of the parameter.
 
 ### KsBeginDecode
 
