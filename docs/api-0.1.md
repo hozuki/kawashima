@@ -330,6 +330,7 @@ typedef enum {
 - `KS_ERR_INVALID_STAGE`: unused.
 - `KS_ERR_FILE_OP_FAILED`: file operations failed.
 - `KS_ERR_INVALID_FILE_PROP`: the file properties are invalid.
+- `KS_ERR_INVALID_OPERATION`: cannot perform desired operation due to various reasons.
 - `KS_ERR_DECODE_FAILED`: unused.
 - `KS_ERR_BUFFER_TOO_SMALL`: the given buffer is too small for outcoming data.
 - `KS_ERR_CHECKSUM_NOT_MATCH`: the checksum of HCA data does not match during validation.
