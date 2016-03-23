@@ -1,6 +1,3 @@
-//--------------------------------------------------
-// インクルード
-//--------------------------------------------------
 #include <stdio.h>
 #include <memory.h>
 #include "CHCA.h"
@@ -8,15 +5,17 @@
 #include "../wave/WaveNative.h"
 #include "../api/ks_decode.h"
 #include "Magic.h"
+#include "WaveGen.h"
 
-static const uint32 WAVE_BIT_PER_CHANNEL = 16;
-static const ubool WAVE_USER_LOOP = FALSE;
+typedef struct _WAVE_SETTINGS {
+    /**
+     * Bit per channel. Future acceptable values will be 8, 16, 24, 32 and 0 (floating point wave data).
+     */
+    uint32 bitPerChannel;
+    ubool useLoop;
+} WAVE_SETTINGS;
 
-void Decode16Bit(float data, uint8 *buffer, uint32 *cursor) {
-    int16 i = (int16)(data * 0x7fff);
-    *(int16 *)(buffer + *cursor) = i;
-    *cursor += 2;
-}
+static WAVE_SETTINGS waveSettings = {16, FALSE};
 
 template<typename T>
 T clamp(T value, T min, T max) {
@@ -128,9 +127,6 @@ inline uint32 ceil2(uint32 a, uint32 b) {
     return (b > 0) ? (a / b + ((a % b) ? 1 : 0)) : 0;
 }
 
-//--------------------------------------------------
-// コンストラクタ
-//--------------------------------------------------
 CHCA::CHCA(uint32 ciphKey1, uint32 ciphKey2) :
         _ath(), _cipher() {
     _ciph_key1 = ciphKey1;
@@ -142,9 +138,6 @@ const HCA_INFO *CHCA::GetInfo() {
     return &hcaInfo;
 }
 
-//--------------------------------------------------
-// チェックサム
-//--------------------------------------------------
 uint16 CHCA::Checksum(void *data, uint32 size, uint16 sum) {
     static uint16 checksumTable[] = {
             0x0000, 0x8005, 0x800F, 0x000A, 0x801B, 0x001E, 0x0014, 0x8011,
@@ -430,9 +423,9 @@ KS_RESULT CHCA::GetWaveHeader(uint8 *pBuffer, uint32 *pdwDataSize) {
     WaveSampleSection wavSmpl = {'s', 'm', 'p', 'l', 0x3C, 0, 0, 0, 0x3C, 0, 0, 0, 1, 0x18, 0, 0, 0, 0, 0, 0};
     WaveNoteSection wavNote = {'n', 'o', 't', 'e', 0, 0};
     WaveDataSection wavData = {'d', 'a', 't', 'a', 0};
-    wavRiff.fmtType = (uint16)((WAVE_BIT_PER_CHANNEL > 0) ? 1 : 3);
+    wavRiff.fmtType = (uint16)((waveSettings.bitPerChannel > 0) ? 1 : 3);
     wavRiff.fmtChannelCount = (uint16)hcaInfo.channelCount;
-    wavRiff.fmtBitCount = (uint16)((WAVE_BIT_PER_CHANNEL > 0) ? WAVE_BIT_PER_CHANNEL : 32);
+    wavRiff.fmtBitCount = (uint16)((waveSettings.bitPerChannel > 0) ? waveSettings.bitPerChannel : 32);
     wavRiff.fmtSamplingRate = hcaInfo.samplingRate;
     wavRiff.fmtSamplingSize = (uint16)(wavRiff.fmtBitCount / 8 * wavRiff.fmtChannelCount);
     wavRiff.fmtSamplesPerSec = wavRiff.fmtSamplingRate * wavRiff.fmtSamplingSize;
@@ -441,7 +434,7 @@ KS_RESULT CHCA::GetWaveHeader(uint8 *pBuffer, uint32 *pdwDataSize) {
         wavSmpl.loopStart = hcaInfo.loopStart * 0x80 * 8 * wavRiff.fmtSamplingSize;
         wavSmpl.loopEnd = hcaInfo.loopEnd * 0x80 * 8 * wavRiff.fmtSamplingSize;
         wavSmpl.loopPlayCount = (hcaInfo.loopR01 == 0x80) ? 0 : hcaInfo.loopR01;
-    } else if (WAVE_USER_LOOP) {
+    } else if (waveSettings.useLoop) {
         wavSmpl.loopStart = 0;
         wavSmpl.loopEnd = hcaInfo.blockCount * 0x80 * 8 * wavRiff.fmtSamplingSize;
         hcaInfo.loopStart = 0;
@@ -454,13 +447,13 @@ KS_RESULT CHCA::GetWaveHeader(uint8 *pBuffer, uint32 *pdwDataSize) {
         }
     }
     wavData.dataSize = hcaInfo.blockCount * 0x80 * 8 * wavRiff.fmtSamplingSize +
-                       (wavSmpl.loopEnd - wavSmpl.loopStart) * WAVE_USER_LOOP;
-    wavRiff.riffSize = (uint32)(0x1C + ((hcaInfo.loopExists && !WAVE_USER_LOOP) ? sizeof(wavSmpl) : 0) +
+                       (wavSmpl.loopEnd - wavSmpl.loopStart) * waveSettings.useLoop;
+    wavRiff.riffSize = (uint32)(0x1C + ((hcaInfo.loopExists && !waveSettings.useLoop) ? sizeof(wavSmpl) : 0) +
                                 (hcaInfo.commentLength > 0 ? 8 + wavNote.noteSize : 0) + sizeof(wavData) +
                                 wavData.dataSize);
 
     uint32 sizeNeeded = (uint32)sizeof(WaveRiffSection);
-    if (hcaInfo.loopExists && !WAVE_USER_LOOP) {
+    if (hcaInfo.loopExists && !waveSettings.useLoop) {
         sizeNeeded += sizeof(WaveSampleSection);
     }
     if (hcaInfo.commentLength > 0) {
@@ -478,7 +471,7 @@ KS_RESULT CHCA::GetWaveHeader(uint8 *pBuffer, uint32 *pdwDataSize) {
             uint32 cursor = 0;
 #define WRITE_STRUCT(src, size) memcpy(pBuffer + cursor, src, size); cursor += size
             WRITE_STRUCT(&wavRiff, sizeof(WaveRiffSection));
-            if (hcaInfo.loopExists && !WAVE_USER_LOOP) {
+            if (hcaInfo.loopExists && !waveSettings.useLoop) {
                 WRITE_STRUCT(&wavSmpl, sizeof(WaveSampleSection));
             }
             if (hcaInfo.commentLength > 0) {
@@ -501,7 +494,8 @@ KS_RESULT CHCA::DecodeData(uint8 *pData, uint32 dwDataSize, KS_DECODE_STATUS *st
     if (!pData || !status || !pdwWaveDataSize || !pbHasMore) {
         return KS_ERR_INVALID_PARAMETER;
     }
-    uint32 waveBlockSize = 8 * 0x80 * (WAVE_BIT_PER_CHANNEL / sizeof(uint8)) * hcaInfo.channelCount;
+    uint32 audioBPC = waveSettings.bitPerChannel != 0 ? waveSettings.bitPerChannel : sizeof(float);
+    uint32 waveBlockSize = 8 * 0x80 * (audioBPC / sizeof(uint8)) * hcaInfo.channelCount;
 
     // The consumer just want to check the minimum acceptable buffer size.
     if (pWaveData == NULL) {
@@ -518,7 +512,7 @@ KS_RESULT CHCA::DecodeData(uint8 *pData, uint32 dwDataSize, KS_DECODE_STATUS *st
     }
     uint32 blocksProcessableThisRound = *pdwWaveDataSize / waveBlockSize;
 
-    if (!WAVE_USER_LOOP && !hcaInfo.loopExists) {
+    if (!waveSettings.useLoop && !hcaInfo.loopExists) {
         uint32 bufferCursor = 0;
         if (status->blockIndex + blocksProcessableThisRound >= hcaInfo.blockCount) {
             blocksProcessableThisRound = hcaInfo.blockCount - status->blockIndex;
@@ -529,7 +523,7 @@ KS_RESULT CHCA::DecodeData(uint8 *pData, uint32 dwDataSize, KS_DECODE_STATUS *st
         KS_RESULT result;
         for (auto i = 0; i < blocksProcessableThisRound; ++i) {
             result = GenerateWaveDataBlock(pData, hcaInfo.blockSize, &status->dataCursor, pWaveData, &bufferCursor,
-                                           Decode16Bit);
+                                           WaveGen::Decode16Bit);
             if (!KS_CALL_SUCCESSFUL(result)) {
                 return result;
             }

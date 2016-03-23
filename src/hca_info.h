@@ -1,7 +1,3 @@
-//
-// Created by MIC on 2016/3/18.
-//
-
 #ifndef KAWASHIMA_HCA_INFO_H
 #define KAWASHIMA_HCA_INFO_H
 

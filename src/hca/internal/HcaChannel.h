@@ -1,7 +1,3 @@
-//
-// Created by MIC on 2016/3/12.
-//
-
 #ifndef KAWASHIMA_HCACHANNEL_H
 #define KAWASHIMA_HCACHANNEL_H
 
