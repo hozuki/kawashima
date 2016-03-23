@@ -157,7 +157,7 @@ Decodes data blocks from HCA to WAVE.
 
 You can pass `NULL` to `pBuffer`. In this case, `pdwDataSize` will return the size of one generated WAVE data block.
 When the buffer is not `NULL`, the decoder will try to decode as many blocks as possible. For example, given a buffer
-of the size of 3.7 blocks, the decoder will write decode 3 blocks if there is more than 2 blocks left.
+of the size of 3.7 blocks, the decoder will decode 3 blocks if there is more than 2 blocks left.
 
 ### KsEndDecode
 
