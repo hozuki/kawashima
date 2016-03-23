@@ -1,10 +1,6 @@
 #include <string.h>
 #include "HcaChannel.h"
 
-//--------------------------------------------------
-// デコード第一段階
-//   ベースデータの読み込み
-//--------------------------------------------------
 void HcaChannel::Decode1(CHcaData *data, uint32 a, int b, const uint8 *ath) {
     static uint8 scalelist[] = {
             // v2.0
@@ -95,10 +91,6 @@ void HcaChannel::Decode1(CHcaData *data, uint32 a, int b, const uint8 *ath) {
     }
 }
 
-//--------------------------------------------------
-// デコード第二段階
-//   ブロックデータの読み込み
-//--------------------------------------------------
 void HcaChannel::Decode2(CHcaData *data) {
     static char list1[] = {
             0, 2, 3, 3, 4, 4, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12,
@@ -144,10 +136,6 @@ void HcaChannel::Decode2(CHcaData *data) {
     memset(&block[count], 0, sizeof(float) * (0x80 - count));
 }
 
-//--------------------------------------------------
-// デコード第三段階
-//   ブロックデータ修正その１ ※v2.0から追加
-//--------------------------------------------------
 void HcaChannel::Decode3(uint32 a, uint32 b, uint32 c, uint32 d) {
     if (type != 2 && b) {
         static uint32 listInt[2][0x40] = {
@@ -182,10 +170,6 @@ void HcaChannel::Decode3(uint32 a, uint32 b, uint32 c, uint32 d) {
     }
 }
 
-//--------------------------------------------------
-// デコード第四段階
-//   ブロックデータ修正その２
-//--------------------------------------------------
 void HcaChannel::Decode4(int32 index, uint32 a, uint32 b, uint32 c) {
     if (type == 1 && c) {
         static uint32 listInt[] = {
@@ -198,7 +182,7 @@ void HcaChannel::Decode4(int32 index, uint32 a, uint32 b, uint32 c) {
                 0x3766F85B, 0x3799E046, 0x37CD078C, 0x3808980F, 0x38360094, 0x38728177, 0x38A18FAF, 0x38D744FD,
                 0x390F6A81, 0x393F179A, 0x397E9E11, 0x39A9A15B, 0x39E2055B, 0x3A16942D, 0x3A48A2D8, 0x3A85AAC3,
                 0x3AB21A32, 0x3AED4F30, 0x3B1E196E, 0x3B52A81E, 0x3B8C57CA, 0x3BBAFF5B, 0x3BF9295A, 0x3C25FED7,
-                //↓この2行要らない？
+                // Are these 2 lines necessary?
                 0x3C5D2D82, 0x3C935A2B, 0x3CC4563F, 0x3D02CD87, 0x3D2E4934, 0x3D68396A, 0x3D9AB62B, 0x3DCE248C,
                 0x3E0955EE, 0x3E36FD92, 0x3E73D290, 0x3EA27043, 0x3ED87039, 0x3F1031DC, 0x3F40213B, 0x00000000,
                 // v1.3
@@ -216,10 +200,6 @@ void HcaChannel::Decode4(int32 index, uint32 a, uint32 b, uint32 c) {
     }
 }
 
-//--------------------------------------------------
-// デコード第五段階
-//   波形データを生成
-//--------------------------------------------------
 void HcaChannel::Decode5(int32 index) {
     static uint32 list1Int[7][0x40] = {
             {

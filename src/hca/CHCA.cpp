@@ -494,8 +494,6 @@ KS_RESULT CHCA::GetWaveHeader(uint8 *pBuffer, uint32 *pdwDataSize) {
         *pdwDataSize = sizeNeeded;
         return bufferLargeEnough ? KS_ERR_OK : KS_ERR_BUFFER_TOO_SMALL;
     }
-
-    return KS_ERR_OK;
 }
 
 KS_RESULT CHCA::DecodeData(uint8 *pData, uint32 dwDataSize, KS_DECODE_STATUS *status, uint8 *pWaveData,
