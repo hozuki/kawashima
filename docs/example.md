@@ -57,5 +57,6 @@ int main(int argc, const char *argv[]) {
     fclose(fp);
     KsEndDecode(hDecode);
     KsCloseHandle(hDecode);
+    return 0;
 }
 ```
