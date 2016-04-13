@@ -419,6 +419,7 @@ KS_RESULT CHCA::GetWaveHeader(uint8 *pBuffer, uint32 *pdwDataSize) {
         return KS_ERR_INVALID_PARAMETER;
     }
 
+    int loopCount = 0;
     WaveRiffSection wavRiff = {'R', 'I', 'F', 'F', 0, 'W', 'A', 'V', 'E', 'f', 'm', 't', ' ', 0x10, 0, 0, 0, 0, 0, 0};
     WaveSampleSection wavSmpl = {'s', 'm', 'p', 'l', 0x3C, 0, 0, 0, 0x3C, 0, 0, 0, 1, 0x18, 0, 0, 0, 0, 0, 0};
     WaveNoteSection wavNote = {'n', 'o', 't', 'e', 0, 0};
@@ -447,7 +448,7 @@ KS_RESULT CHCA::GetWaveHeader(uint8 *pBuffer, uint32 *pdwDataSize) {
         }
     }
     wavData.dataSize = hcaInfo.blockCount * 0x80 * 8 * wavRiff.fmtSamplingSize +
-                       (wavSmpl.loopEnd - wavSmpl.loopStart) * waveSettings.useLoop;
+                       (wavSmpl.loopEnd - wavSmpl.loopStart) * loopCount;
     wavRiff.riffSize = (uint32)(0x1C + ((hcaInfo.loopExists && !waveSettings.useLoop) ? sizeof(wavSmpl) : 0) +
                                 (hcaInfo.commentLength > 0 ? 8 + wavNote.noteSize : 0) + sizeof(wavData) +
                                 wavData.dataSize);
