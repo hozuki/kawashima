@@ -495,7 +495,7 @@ KS_RESULT CHCA::DecodeData(uint8 *pData, uint32 dwDataSize, KS_DECODE_STATUS *st
         return KS_ERR_INVALID_PARAMETER;
     }
     uint32 audioBPC = waveSettings.bitPerChannel != 0 ? waveSettings.bitPerChannel : sizeof(float);
-    uint32 waveBlockSize = 8 * 0x80 * (audioBPC / sizeof(uint8)) * hcaInfo.channelCount;
+    uint32 waveBlockSize = 0x80 * (audioBPC / sizeof(uint8)) * hcaInfo.channelCount;
 
     // The consumer just want to check the minimum acceptable buffer size.
     if (pWaveData == NULL) {
