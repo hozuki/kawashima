@@ -10,6 +10,8 @@ For how-tos, please see the [API docs](https://github.com/Hozuki/kawashima/tree/
 
 Beware that, if you want to integrate the library or any piece of code, **DO AT YOUR OWN RISK**.
 
+There is a C# P/Invoke wrapper for kawashima at [DereTore.HCA.Native](https://github.com/Hozuki/DereTore/tree/master/DereTore.HCA.Native).
+
 ------
 
 [Disclaimer](https://github.com/Hozuki/kawashima/tree/master/DISCLAIMER.md)
