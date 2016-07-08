@@ -5,7 +5,7 @@ CHcaCipher::CHcaCipher() {
 }
 
 ubool CHcaCipher::Init(HCA_CIPHER_TYPE type, uint32 key1, uint32 key2) {
-    if (!(key1 | key2)) {
+    if (!(key1 | key2) && type == HCA_CIPHER_TYPE_WITH_KEY) {
         type = HCA_CIPHER_TYPE_NO_CIPHER;
     }
     switch (type) {
@@ -24,15 +24,15 @@ ubool CHcaCipher::Init(HCA_CIPHER_TYPE type, uint32 key1, uint32 key2) {
     return TRUE;
 }
 
-void CHcaCipher::Mask(uint8 *data, uint32 size) {
+void CHcaCipher::Decrypt(uint8 *data, uint32 size) {
     for (uint8 *d = data; size > 0; d++, size--) {
-        *d = _table[*d];
+        *d = _decryptTable[*d];
     }
 }
 
 void CHcaCipher::Init0() {
     for (uint32 i = 0; i < 0x100; i++) {
-        _table[i] = (uint8)i;
+        _decryptTable[i] = (uint8)i;
     }
 }
 
@@ -42,10 +42,10 @@ void CHcaCipher::Init1() {
         if (v == 0 || v == 0xFF) {
             v = (v * 13 + 11) & 0xFF;
         }
-        _table[i] = (uint8)v;
+        _decryptTable[i] = (uint8)v;
     }
-    _table[0] = 0;
-    _table[0xFF] = 0xFF;
+    _decryptTable[0] = 0;
+    _decryptTable[0xFF] = 0xFF;
 }
 
 void CHcaCipher::Init56(uint32 key1, uint32 key2) {
@@ -85,7 +85,7 @@ void CHcaCipher::Init56(uint32 key1, uint32 key2) {
     }
 
     // Generate CIPH table
-    t = &_table[1];
+    t = &_decryptTable[1];
     for (uint32 i = 0, v = 0; i < 0x100; i++) {
         v = (v + 0x11) & 0xFF;
         uint8 a = t3[v];
@@ -93,8 +93,8 @@ void CHcaCipher::Init56(uint32 key1, uint32 key2) {
             *(t++) = a;
         }
     }
-    _table[0] = 0;
-    _table[0xFF] = 0xFF;
+    _decryptTable[0] = 0;
+    _decryptTable[0xFF] = 0xFF;
 }
 
 void CHcaCipher::Init56_CreateTable(uint8 *r, uint8 key) {

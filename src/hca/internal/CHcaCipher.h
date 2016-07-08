@@ -11,10 +11,10 @@ public:
 
     ubool Init(HCA_CIPHER_TYPE type, uint32 key1, uint32 key2);
 
-    void Mask(uint8 *data, uint32 size);
+    void Decrypt(uint8 *data, uint32 size);
 
 private:
-    uint8 _table[0x100];
+    uint8 _decryptTable[0x100];
 
     void Init0();
 

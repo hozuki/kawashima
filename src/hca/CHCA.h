@@ -20,17 +20,17 @@ public:
 
     static uint16 Checksum(void *data, uint32 size, uint16 sum);
 
-    KS_RESULT ReadHeader(uint8 *data, uint32 size, KS_DECODE_STATUS *status);
+    KS_RESULT ReadHeader(uint8 *fileData, uint32 fileSize, KS_DECODE_STATUS *status);
 
-    KS_RESULT GetWaveHeader(uint8 *pBuffer, uint32 *pdwDataSize);
+    KS_RESULT GetWaveHeader(uint8 *pBuffer, uint32 *pdwWaveHeaderSize);
 
     KS_RESULT DecodeData(uint8 *pData, uint32 dwDataSize, KS_DECODE_STATUS *status, uint8 *pWaveData,
                          uint32 *pdwWaveDataSize, ubool *pbHasMore);
 
-    KS_RESULT GenerateWaveDataBlock(uint8 *pData, uint32 dwDataSize, uint32 *pDataCursor, uint8 *pBuffer,
+    KS_RESULT GenerateWaveDataBlock(uint8 *pData, uint32 dwBlockSize, uint32 *pDataCursor, uint8 *pBuffer,
                                     uint32 *pBufferCursor, DecodeFunc pfnDecodeFunc);
 
-    KS_RESULT DecodeBlock(uint8 *pData, uint32 dwDataSize, uint32 *pDataCursor);
+    KS_RESULT DecodeBlock(uint8 *pData, uint32 dwBlockSize, uint32 *pDataCursor);
 
     const HCA_INFO *GetInfo();
 
@@ -42,7 +42,7 @@ private:
     CHcaAth _ath;
     CHcaCipher _cipher;
     HcaChannel _channels[0x10];
-    HCA_INFO hcaInfo;
+    HCA_INFO _hcaInfo;
 
 };
 

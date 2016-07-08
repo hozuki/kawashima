@@ -1,6 +1,7 @@
 # kawashima
 
 [kawashima](https://github.com/Hozuki/kawashima) is a library to decode [CRI HCA audio](http://www.criware.com/en/products/adx2.html).
+It is named after [Mizuki Kawashima](http://www.project-imas.com/wiki/Mizuki_Kawashima).
 
 Its original code is from [here](https://mega.co.nz/#!Fh8FwKoB!0xuFdrit3IYcEgQK7QIqFKG3HMQ6rHKxrH3r5DJlJ3M), in public
 domain. Some adaptations are made to pack the functions into a shared library.
@@ -14,6 +15,6 @@ There is a C# P/Invoke wrapper for kawashima at [DereTore.HCA.Native](https://gi
 
 ------
 
-[Disclaimer](https://github.com/Hozuki/kawashima/tree/master/DISCLAIMER.md)
+[Disclaimer](DISCLAIMER.md)
 
 [WTFPL](http://www.wtfpl.net/txt/copying/)
