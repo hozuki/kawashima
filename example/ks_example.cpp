@@ -6,6 +6,23 @@ using namespace std;
 
 void PrintHelp();
 
+uint32 hatoui(const char *a) {
+    uint32 val = 0;
+    while (a && *a) {
+        if ('0' <= *a && *a <= '9') {
+            val = (val << 4) + (*a - '0');
+        } else if ('a' <= *a && *a <= 'f') {
+            val = (val << 4) + (*a - 'a' + 10);
+        } else if ('A' <= *a && *a <= 'F') {
+            val = (val << 4) + (*a - 'A' + 10);
+        } else {
+            break;
+        }
+        ++a;
+    }
+    return val;
+}
+
 int main(int argc, const char *argv[]) {
     if (argc != 5) {
         PrintHelp();
@@ -27,8 +44,10 @@ int main(int argc, const char *argv[]) {
     }
 
     // Set parameters before beginning to decode.
-    KsSetParamI32(hDecode, KS_PARAM_KEY1, (uint32)atoi(argv[2]));
-    KsSetParamI32(hDecode, KS_PARAM_KEY2, (uint32)atoi(argv[3]));
+    if (argc >= 5) {
+        KsSetParamI32(hDecode, KS_PARAM_KEY1, hatoui(argv[3]));
+        KsSetParamI32(hDecode, KS_PARAM_KEY2, hatoui(argv[4]));
+    }
     KsBeginDecode(hDecode);
     fp = fopen(argv[2], "wb");
 
