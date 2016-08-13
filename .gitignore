@@ -1,4 +1,12 @@
 
 .idea
+.vs
+_Resharper*
+
+*.VC.db
+*.VC.opendb
+
 bin/
+obj/
+
 CMakeLists.txt

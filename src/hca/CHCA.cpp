@@ -1,4 +1,7 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <stdio.h>
+#include <cstring>
 #include <memory.h>
 #include "CHCA.h"
 #include "HcaNative.h"
@@ -594,7 +597,7 @@ KS_RESULT CHCA::DecodeBlock(uint8 *pData, uint32 dwBlockSize, uint32 *pDataCurso
             }
         }
     } else {
-        return KS_ERR_INVALID_INTERNAL_STATE;
+        return KS_ERR_MAGIC_NOT_MATCH;
     }
     *pDataCursor += dwBlockSize;
     return KS_ERR_OK;

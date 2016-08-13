@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="src\hca_info.h" />
+    <ClInclude Include="src\ksapi.h" />
+    <ClInclude Include="src\kstypedef.h" />
+    <ClInclude Include="src\api\ks_decode.h">
+      <Filter>api</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hca\CHCA.h">
+      <Filter>hca</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hca\HcaNative.h">
+      <Filter>hca</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hca\internal\CHcaAth.h">
+      <Filter>hca</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hca\internal\CHcaCipher.h">
+      <Filter>hca</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hca\internal\CHcaData.h">
+      <Filter>hca</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hca\internal\HcaChannel.h">
+      <Filter>hca</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hca\Magic.h">
+      <Filter>hca</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hca\WaveGen.h">
+      <Filter>hca</Filter>
+    </ClInclude>
+    <ClInclude Include="src\wave\WaveNative.h">
+      <Filter>wave</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="api">
+      <UniqueIdentifier>{42336703-9c39-4f79-aa48-96c61802115f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hca">
+      <UniqueIdentifier>{88ca6b9a-4ab3-4e3f-bd00-302bef99e81b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="wave">
+      <UniqueIdentifier>{8e4cb07e-338f-4976-be35-88bb111ecced}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\api\ksapi.cpp">
+      <Filter>api</Filter>
+    </ClCompile>
+    <ClCompile Include="src\hca\CHCA.cpp">
+      <Filter>hca</Filter>
+    </ClCompile>
+    <ClCompile Include="src\hca\internal\CHcaAth.cpp">
+      <Filter>hca</Filter>
+    </ClCompile>
+    <ClCompile Include="src\hca\internal\CHcaCipher.cpp">
+      <Filter>hca</Filter>
+    </ClCompile>
+    <ClCompile Include="src\hca\internal\CHcaData.cpp">
+      <Filter>hca</Filter>
+    </ClCompile>
+    <ClCompile Include="src\hca\internal\HcaChannel.cpp">
+      <Filter>hca</Filter>
+    </ClCompile>
+    <ClCompile Include="src\hca\Magic.cpp">
+      <Filter>hca</Filter>
+    </ClCompile>
+    <ClCompile Include="src\hca\WaveGen.cpp">
+      <Filter>hca</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DISCLAIMER.md" />
+    <None Include="README.md" />
+    <None Include=".gitignore" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
+    <Text Include="CMakeLists-example-cygwin.txt" />
+  </ItemGroup>
+</Project>

@@ -7,7 +7,7 @@ typedef enum {
     HCA_CIPHER_TYPE_NO_CIPHER = 0,
     HCA_CIPHER_TYPE_STATIC = 1,
     HCA_CIPHER_TYPE_WITH_KEY = 0x38,
-    HCA_CIPHER_TYPE_FORCE_DWORD = (uint32)0xffffffff
+    HCA_CIPHER_TYPE_FORCE_DWORD = 0xffffffff
 } HCA_CIPHER_TYPE;
 
 typedef struct _HCA_INFO {
