@@ -47,8 +47,6 @@ typedef enum {
 
 #define KS_CALL_SUCCESSFUL(x) ((ubool)(((int32)x) >= 0))
 
-extern "C" __declspec(dllexport) HCA_CIPHER_TYPE __stdcall AppinfoX();
-
 DECL_KS_API(KS_RESULT, KsOpenFile, (const char *pFileName, HKDECODE *ppHandle));
 DECL_KS_API(KS_RESULT, KsOpenBuffer, (uint8 *pData, uint32 dwDataSize, ubool bClone, HKDECODE *ppHandle));
 DECL_KS_API(KS_RESULT, KsSetParamI32, (HKDECODE hDecode, KS_PARAM_TYPE dwParamType, uint32 dwParam));
