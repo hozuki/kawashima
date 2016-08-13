@@ -76,6 +76,7 @@
     <None Include="DISCLAIMER.md" />
     <None Include="README.md" />
     <None Include=".gitignore" />
+    <None Include="kawashima.def" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />

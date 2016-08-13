@@ -13,6 +13,17 @@ Beware that, if you want to integrate the library or any piece of code, **DO AT 
 
 There is a C# P/Invoke wrapper for kawashima at [DereTore.HCA.Native](https://github.com/Hozuki/DereTore/tree/master/DereTore.HCA.Native).
 
+## Building kawashima
+
+### Visual C++
+
+kawashima requires Visual C++ 2010 as the minimum version to build. Open `kawashima.sln` to start building.
+
+### Cygwin
+
+kawashima requires CMake 3.3 (in fact, it can be lower) as the minimum version to build.Rename
+`CMakeLists-example-cygwin.txt` to `CMakeLists.txt` and use CMake to start building.
+
 ------
 
 [Disclaimer](DISCLAIMER.md)

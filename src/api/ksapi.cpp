@@ -19,14 +19,14 @@
 #include "../ksapi.h"
 #include "ks_decode.h"
 
-#ifdef TRUE
-#undef TRUE
-#endif
-#ifdef FALSE
-#undef FALSE
-#endif
-#define TRUE    ((uint32)1)
-#define FALSE   ((uint32)0)
+//#ifdef TRUE
+//#undef TRUE
+//#endif
+//#ifdef FALSE
+//#undef FALSE
+//#endif
+//#define TRUE    ((uint32)1)
+//#define FALSE   ((uint32)0)
 
 static const uint32 KS_DECODE_MAGIC = 0x491c39a6;
 
@@ -34,7 +34,7 @@ inline ubool check_magic(KS_DECODE *hDecode) {
 	return hDecode->magic == KS_DECODE_MAGIC ? TRUE : FALSE;
 }
 
-KS_RESULT STDCALL KsOpenFile(const char *pFileName, HKDECODE *ppHandle) {
+EXTERN_C KS_RESULT STDCALL KsOpenFile(const char *pFileName, HKDECODE *ppHandle) {
 	if (!pFileName || !pFileName[0]) {
 		return KS_ERR_INVALID_PARAMETER;
 	}
@@ -84,7 +84,7 @@ KS_RESULT STDCALL KsOpenFile(const char *pFileName, HKDECODE *ppHandle) {
 	return result;
 }
 
-KS_RESULT STDCALL KsOpenBuffer(uint8 *pData, uint32 dwDataSize, ubool bClone, HKDECODE *ppHandle) {
+EXTERN_C KS_RESULT STDCALL KsOpenBuffer(uint8 *pData, uint32 dwDataSize, ubool bClone, HKDECODE *ppHandle) {
 	if (!pData || dwDataSize <= 0 || !ppHandle) {
 		return KS_ERR_INVALID_PARAMETER;
 	}
@@ -108,7 +108,7 @@ KS_RESULT STDCALL KsOpenBuffer(uint8 *pData, uint32 dwDataSize, ubool bClone, HK
 	return KS_ERR_OK;
 }
 
-KS_RESULT STDCALL KsSetParamI32(HKDECODE hDecode, KS_PARAM_TYPE dwParamType, uint32 dwParam) {
+EXTERN_C KS_RESULT STDCALL KsSetParamI32(HKDECODE hDecode, KS_PARAM_TYPE dwParamType, uint32 dwParam) {
 	if (!hDecode) {
 		return KS_ERR_INVALID_PARAMETER;
 	}
@@ -135,7 +135,7 @@ KS_RESULT STDCALL KsSetParamI32(HKDECODE hDecode, KS_PARAM_TYPE dwParamType, uin
 	return KS_ERR_OK;
 }
 
-KS_RESULT STDCALL KsSetParamI64(HKDECODE hDecode, KS_PARAM_TYPE dwParamType, uint64 qwParam) {
+EXTERN_C KS_RESULT STDCALL KsSetParamI64(HKDECODE hDecode, KS_PARAM_TYPE dwParamType, uint64 qwParam) {
 	if (!hDecode) {
 		return KS_ERR_INVALID_PARAMETER;
 	}
@@ -157,7 +157,7 @@ KS_RESULT STDCALL KsSetParamI64(HKDECODE hDecode, KS_PARAM_TYPE dwParamType, uin
 	return KS_ERR_OK;
 }
 
-KS_RESULT STDCALL KsBeginDecode(HKDECODE hDecode) {
+EXTERN_C KS_RESULT STDCALL KsBeginDecode(HKDECODE hDecode) {
 	if (!hDecode) {
 		return KS_ERR_INVALID_PARAMETER;
 	}
@@ -179,7 +179,7 @@ KS_RESULT STDCALL KsBeginDecode(HKDECODE hDecode) {
 	return r;
 }
 
-KS_RESULT STDCALL KsGetWaveHeader(HKDECODE hDecode, uint8 *pBuffer, uint32 *pdwDataSize) {
+EXTERN_C KS_RESULT STDCALL KsGetWaveHeader(HKDECODE hDecode, uint8 *pBuffer, uint32 *pdwDataSize) {
 	if (!hDecode) {
 		return KS_ERR_INVALID_PARAMETER;
 	}
@@ -203,7 +203,7 @@ KS_RESULT STDCALL KsGetWaveHeader(HKDECODE hDecode, uint8 *pBuffer, uint32 *pdwD
 	return result;
 }
 
-KS_RESULT STDCALL KsDecodeData(HKDECODE hDecode, uint8 *pBuffer, uint32 *pdwDataSize) {
+EXTERN_C KS_RESULT STDCALL KsDecodeData(HKDECODE hDecode, uint8 *pBuffer, uint32 *pdwDataSize) {
 	if (!hDecode) {
 		return KS_ERR_INVALID_PARAMETER;
 	}
@@ -235,7 +235,7 @@ KS_RESULT STDCALL KsDecodeData(HKDECODE hDecode, uint8 *pBuffer, uint32 *pdwData
 	return result;
 }
 
-KS_RESULT STDCALL KsEndDecode(HKDECODE hDecode) {
+EXTERN_C KS_RESULT STDCALL KsEndDecode(HKDECODE hDecode) {
 	if (!hDecode) {
 		return KS_ERR_INVALID_HANDLE;
 	}
@@ -252,7 +252,7 @@ KS_RESULT STDCALL KsEndDecode(HKDECODE hDecode) {
 	return KS_ERR_OK;
 }
 
-KS_RESULT STDCALL KsCloseHandle(HKDECODE hDecode) {
+EXTERN_C KS_RESULT STDCALL KsCloseHandle(HKDECODE hDecode) {
 	if (!hDecode) {
 		return KS_ERR_INVALID_HANDLE;
 	}
@@ -276,7 +276,7 @@ KS_RESULT STDCALL KsCloseHandle(HKDECODE hDecode) {
 	return KS_ERR_OK;
 }
 
-KS_RESULT STDCALL KsGetHcaInfo(HKDECODE hDecode, HCA_INFO *pInfo) {
+EXTERN_C KS_RESULT STDCALL KsGetHcaInfo(HKDECODE hDecode, HCA_INFO *pInfo) {
 	if (!hDecode || !pInfo) {
 		return KS_ERR_INVALID_PARAMETER;
 	}
@@ -293,7 +293,7 @@ KS_RESULT STDCALL KsGetHcaInfo(HKDECODE hDecode, HCA_INFO *pInfo) {
 	return KS_ERR_OK;
 }
 
-ubool STDCALL KsIsActiveHandle(HKDECODE hDecode) {
+EXTERN_C ubool STDCALL KsIsActiveHandle(HKDECODE hDecode) {
 	if (!hDecode) {
 		return FALSE;
 	}
@@ -312,7 +312,7 @@ ubool STDCALL KsIsActiveHandle(HKDECODE hDecode) {
 	return TRUE;
 }
 
-ubool STDCALL KsIsHcaCheckPassed(HKDECODE hDecode) {
+EXTERN_C ubool STDCALL KsIsHcaCheckPassed(HKDECODE hDecode) {
 	if (!hDecode) {
 		return FALSE;
 	}
@@ -326,7 +326,7 @@ ubool STDCALL KsIsHcaCheckPassed(HKDECODE hDecode) {
 	return decode->status.hcaChecked ? (ubool)!decode->status.hcaCheckFailed : FALSE;
 }
 
-KS_RESULT STDCALL KsHasMoreData(HKDECODE hDecode, ubool *pbHasMore) {
+EXTERN_C KS_RESULT STDCALL KsHasMoreData(HKDECODE hDecode, ubool *pbHasMore) {
 	if (!hDecode) {
 		return KS_ERR_INVALID_HANDLE;
 	}
@@ -353,5 +353,5 @@ KS_RESULT STDCALL KsHasMoreData(HKDECODE hDecode, ubool *pbHasMore) {
 	}
 }
 
-void STDCALL KsTest() {
+EXTERN_C void STDCALL KsTest() {
 }
