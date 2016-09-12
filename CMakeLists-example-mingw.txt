@@ -1,0 +1,20 @@
+cmake_minimum_required(VERSION 3.3)
+project(kawashima)
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+
+message("Killing 'at' symbols in exported functions.")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wl,--kill-at")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wl,--kill-at")
+
+set(SOURCE_FILES src/kstypedef.h src/hca/CHCA.h src/hca/CHCA.cpp src/hca/HcaNative.h src/hca/internal/CHcaCipher.cpp src/hca/internal/CHcaCipher.h src/hca/internal/CHcaAth.cpp src/hca/internal/CHcaAth.h src/hca/internal/CHcaData.cpp src/hca/internal/CHcaData.h src/hca/internal/HcaChannel.cpp src/hca/internal/HcaChannel.h src/hca/Magic.cpp src/hca/Magic.h src/wave/WaveNative.h src/api/ksapi.cpp src/ksapi.h src/api/ks_decode.h src/hca_info.h src/hca/WaveGen.cpp src/hca/WaveGen.h)
+set(EXAMPLE_FILES example/ks_example.cpp)
+
+set(PROJECT_VERSION_MAJOR 0)
+set(PROJECT_VERSION_MINOR 1)
+set(PROJECT_VERSION_TWEAK 0)
+set(PROJECT_VERSION_PATCH 0)
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin/${TARGET_ARCH}/${CMAKE_BUILD_TYPE}")
+add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES})
+add_executable(${PROJECT_NAME}-example ${SOURCE_FILES} ${EXAMPLE_FILES})

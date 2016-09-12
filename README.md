@@ -21,8 +21,13 @@ kawashima requires Visual C++ 2010 as the minimum version to build. Open `kawash
 
 ### Cygwin
 
-kawashima requires CMake 3.3 (in fact, it can be lower) as the minimum version to build.Rename
+kawashima requires CMake 3.3 (in fact, it can be lower) as the minimum version to build. Rename
 `CMakeLists-example-cygwin.txt` to `CMakeLists.txt` and use CMake to start building.
+
+### MinGW
+
+The CMake version requirement is the same as building under Cygwin. Rename `CMakeLists-example-mingw.txt`
+to `CMakeLists.txt` and use CMake to start building.
 
 ------
 
