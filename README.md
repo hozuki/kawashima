@@ -33,4 +33,4 @@ to `CMakeLists.txt` and use CMake to start building.
 
 [Disclaimer](DISCLAIMER.md)
 
-[WTFPL](http://www.wtfpl.net/txt/copying/)
+[WTFPL](LICENSE.txt) ([ref](http://www.wtfpl.net/txt/copying/))
