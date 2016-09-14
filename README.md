@@ -33,4 +33,5 @@ to `CMakeLists.txt` and use CMake to start building.
 
 [Disclaimer](DISCLAIMER.md)
 
-[WTFNMPPL](LICENSE.txt) ([ref](http://www.wtfpl.net/txt/copying/))
+[WTFPL](LICENSE.txt)
+<a href="http://www.wtfpl.net/txt/copying/">![WTFPL Badge](http://www.wtfpl.net/wp-content/uploads/2012/12/wtfpl-badge-2.png)</a>
