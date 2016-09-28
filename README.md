@@ -1,3 +1,7 @@
+**From early October 2016, kawashima is merging into [libcgss](https://github.com/hozuki/libcgss).**
+
+---
+
 # kawashima
 
 [kawashima](https://github.com/Hozuki/kawashima) is a library to decode [CRI HCA audio](http://www.criware.com/en/products/adx2.html).
